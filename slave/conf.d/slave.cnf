@@ -1,0 +1,12 @@
+[mysqld]
+server-id = 102 # Different from master server-id
+log_bin = /var/log/mysql/mysql-bin.log
+relay-log = /var/log/mysql/mysql-relay-bin.log
+binlog_do_db = acquia
+replicate_do_db = acquia
+bind-address = 0.0.0.0 # make sure to bind it to all IPs, else mysql listens on 127.0.0.1
+character_set_server = utf8
+collation_server = utf8_general_ci
+
+[mysql]
+default_character_set = utf8

@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+  mysql-master:
+    image: 'mysql:5.6'
+    hostname: 'master'
+    container_name: 'mysql-master'
+    ports:
+      - '3306'
+    volumes:
+      - $PWD/master/conf.d:/etc/mysql/mysql.conf.d/
+      - $PWD/master/data:/var/lib/mysql
+      - $PWD/master/log:/var/log/mysql
+      - $PWD/master/backup:/backup
+    environment:
+      - MYSQL_ROOT_PASSWORD=mysql
+      - MYSQL_DATABASE=acquia
+  mysql-slave:
+    image: 'mysql:5.6'
+    hostname: 'slave'
+    container_name: 'mysql-slave'
+    ports:
+      - '3306'
+    volumes:
+      - $PWD/slave/conf.d:/etc/mysql/mysql.conf.d/
+      - $PWD/slave/data:/var/lib/mysql
+      - $PWD/slave/log:/var/log/mysql
+      - $PWD/slave/backup:/backup
+    environment:
+      - MYSQL_ROOT_PASSWORD=mysql
+      - MYSQL_DATABASE=acquia
+    depends_on:
+      - mysql-master
