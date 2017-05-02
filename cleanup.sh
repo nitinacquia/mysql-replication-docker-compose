@@ -1,7 +1,7 @@
 echo "Stopping Containers..."
-docker stop $(docker ps -a -q)
+docker stop $(docker ps -a -q --filter="name=mysql-")
 echo "Removing Containers..."
-docker rm $(docker ps -a -q)
+docker rm $(docker ps -a -q --filter="name=mysql-")
 echo "Cleaning Directory Master"
 rm -rf master/backup/*
 rm -rf master/data/*
